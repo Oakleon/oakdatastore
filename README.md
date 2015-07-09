@@ -1,2 +1,14 @@
-# node-template-project
-Oakleon Node.js Template Project
+# PROJECTNAMEHERE
+
+
+
+### Test
+`npm test`
+
+or
+
+`npm run testwatch`
+
+or
+
+`npm test -- watch`
