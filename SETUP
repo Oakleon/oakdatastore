@@ -1,0 +1,35 @@
+#!/bin/bash
+#Run this to switch from the template project to your node project
+
+script_path="$( cd "$( dirname "$0" )" && pwd )"
+
+cd "$script_path"
+
+if [[ -z "$1" || -z "$2" || -z "$3" || -z "$4" ]]; then
+    echo "usage: $0 project_name \"description here\" \"git_url\" author_email [license_name]"
+    exit 99
+fi
+
+PROJECTNAME="$1"
+DESCRIPTION="$2"
+GITURL="$3"
+AUTHOREMAIL="$4"
+LICENSENAME="$5"
+
+sed -i "" "s/PROJECTNAMEHERE/$PROJECTNAME/g" "$script_path/README.md"
+sed -i "" "s/PROJECTNAMEHERE/$PROJECTNAME/g" "$script_path/package.json"
+sed -i "" "s|DESCRIPTIONHERE|$DESCRIPTION|g" "$script_path/package.json"
+sed -i "" "s|GITURLHERE|$GITURL|g" "$script_path/package.json"
+sed -i "" "s/AUTHOREMAILHERE/$AUTHOREMAIL/g" "$script_path/package.json"
+
+if [ -n "$LICENSENAME" ]; then
+    sed -i "" "s/LICENSEHERE/$LICENSENAME/g" "$script_path/package.json"
+else
+    sed -i "" "s/LICENSEHERE/UNLICENSED/g" "$script_path/package.json"
+fi
+
+git remote remove origin
+git remote add origin "$GITURL"
+git rm SETUP
+
+git commit -a -m "Initial $PROJECTNAME project commit"
