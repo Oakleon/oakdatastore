@@ -1,0 +1,27 @@
+{
+    "ecmaFeatures": {
+        "modules": true
+    },
+    "rules": {
+        "camelcase": [0],
+        "indent": [
+            2,
+            4
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "no-use-before-define" : [2, "nofunc"],
+        "quotes" : [0, "single"],
+        "semi": [
+            2,
+            "always"
+        ]
+    },
+    "env": {
+        "es6": true,
+        "mocha": true,
+        "node": true
+    }
+}
