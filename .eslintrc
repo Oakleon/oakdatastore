@@ -12,6 +12,7 @@
             2,
             "unix"
         ],
+        "no-multi-spaces" : [0],
         "no-use-before-define" : [2, "nofunc"],
         "no-underscore-dangle" : [0],
         "quotes" : [0, "single"],
