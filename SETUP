@@ -7,19 +7,26 @@ cd "$script_path"
 
 if [[ -z "$1" || -z "$2" || -z "$3" || -z "$4" ]]; then
     echo "usage: $0 project_name \"description here\" \"git_url\" author_email [license_name]"
+    echo "example: $0 rainbow-alligator \"Because alligators like glitter, too\" \"github.com:Oakleon/rainbow-alligator\" rainbowdev@example.com MIT"
+    echo ""
+    echo "Currently ssh authentication to github is assumed, you must change this afterwards if you do not want to use ssh authentication"
     exit 99
 fi
 
 PROJECTNAME="$1"
 DESCRIPTION="$2"
-GITURL="$3"
 AUTHOREMAIL="$4"
 LICENSENAME="$5"
+
+#Just get the git base url, allowing various input styles
+GITBASEURL=${3#*://}
+GITBASEURL=${GITBASEURL#git@}
+GITBASEURL=${GITBASEURL%.git}
 
 sed -i "" "s/PROJECTNAMEHERE/$PROJECTNAME/g" "$script_path/README.md"
 sed -i "" "s/PROJECTNAMEHERE/$PROJECTNAME/g" "$script_path/package.json"
 sed -i "" "s|DESCRIPTIONHERE|$DESCRIPTION|g" "$script_path/package.json"
-sed -i "" "s|GITURLHERE|$GITURL|g" "$script_path/package.json"
+sed -i "" "s|GITBASEURLHERE|$GITBASEURL|g" "$script_path/package.json"
 sed -i "" "s/AUTHOREMAILHERE/$AUTHOREMAIL/g" "$script_path/package.json"
 
 if [ -n "$LICENSENAME" ]; then
@@ -29,7 +36,9 @@ else
 fi
 
 git remote remove origin
-git remote add origin "$GITURL"
+git remote add origin "$GITBASEURL"
 git rm SETUP
 
 git commit -a -m "Initial $PROJECTNAME project commit"
+
+echo "Git commit complete. git push at your leisure."
