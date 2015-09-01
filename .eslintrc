@@ -2,6 +2,12 @@
     "ecmaFeatures": {
         "modules": true
     },
+    "env": {
+        "es6": true,
+        "mocha": true,
+        "node": true
+    },
+    "parser": "babel-eslint",
     "rules": {
         "camelcase": [0],
         "indent": [
@@ -20,10 +26,5 @@
             2,
             "always"
         ]
-    },
-    "env": {
-        "es6": true,
-        "mocha": true,
-        "node": true
     }
 }
