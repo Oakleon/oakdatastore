@@ -7,7 +7,14 @@ or
 or  
 `npm test -- watch`
 
-### Atom Setup Tips
+
+## Transpiling
+
+Either use the atom babel package, or use gulp and babel to transpile from src to build.
+
+## Atom Setup Tips
+
+Use of the atom editor is not required. But if you choose to use atom here are some tips.
 
 #### Install Atom Packages
 `apm install linter linter-eslint language-babel editorconfig`
