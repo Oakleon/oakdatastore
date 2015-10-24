@@ -1,7 +1,7 @@
 {
-  "name": "PROJECTNAMEHERE",
+  "name": "oakdatastore",
   "version": "0.0.1",
-  "description": "DESCRIPTIONHERE",
+  "description": "a gcloud node.js datastore abstraction layer with promises",
   "main": "build/index.js",
   "scripts": {
     "test": "mocha",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://GITBASEURLHERE"
+    "url": "https://github.com/Oakleon/oakdatastore"
   },
   "keywords": [
     "node",
     "oakleon"
   ],
-  "author": "AUTHOREMAILHERE",
-  "license": "LICENSEHERE",
+  "author": "chris@oakleon.com",
+  "license": "MIT",
   "bugs": {
-    "url": "https://GITBASEURLHERE/issues"
+    "url": "https://github.com/Oakleon/oakdatastore/issues"
   },
-  "homepage": "https://GITBASEURLHERE#readme",
+  "homepage": "https://github.com/Oakleon/oakdatastore#readme",
   "dependencies": {
     "babel-runtime": "^5.8.20"
   },
