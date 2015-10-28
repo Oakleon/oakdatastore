@@ -24,7 +24,8 @@
   "homepage": "https://github.com/Oakleon/oakdatastore#readme",
   "dependencies": {
     "babel-runtime": "^5.8.20",
-    "gcloud": "^0.24.0"
+    "gcloud": "^0.24.0",
+    "ramda": "^0.18.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",

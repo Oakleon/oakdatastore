@@ -1,7 +1,15 @@
 import _Gcloud from 'gcloud';
 import _Promise from 'bluebird';
+import _Ramda from 'ramda';
 
+//kludge for async await errors
+process.on('unhandledRejection', err => { throw err; });
 
+/**
+ * Make a datastore object from gcloud-node options
+ * @param {Object} options gcloud-node options
+ * @returns {Object} gcloud-node datastore object
+ */
 export function getDataStore(options) {
 
     //options.keyFilename is required if you lack the GCE scope
@@ -70,6 +78,73 @@ export function delete_P(datastore, keys) {
 }
 
 /**
+ * deletes all entities in a namespace
+ * @param {Object} datastore gcloud-node datastore object
+ * @param {string} namespace to wipe
+ * @returns {Promise} warning: this may take a long time to complete
+ */
+export async function deleteNamespace_P(datastore, namespace) {
+    if (!namespace || typeof(namespace) !== 'string') {
+        throw new Error('namespace must be a nonempty string');
+    }
+
+    let deleteEntities_P = async function(datastore, entities) {
+        let keys = _Ramda.pluck('key')(entities);
+        return delete_P(datastore, keys);
+    };
+
+    let kindWorker_P = function(datastore, entities) {
+
+        let kinds = entities.map((entity) => {
+            return entity.key.path[1];
+        });
+
+        return _Promise.resolve(kinds)
+        .map((kind) => {
+            return workOnQuery_P(datastore, namespace, kind, deleteEntities_P);
+        }, {concurrency: 1});
+    };
+
+    return workOnQuery_P(datastore, namespace, '__kind__', kindWorker_P);
+}
+
+/**
+ * A helper function to process a query - warning: this may take a long time to complete
+ * @param {Object} datastore gcloud-node datastore object
+ * @param {string} namespace for query
+ * @param {string} kind for query
+ * @param {function} worker_P callback worker function which takes args: (datastore, entities) and must return a promise - will be called serially for larger datasets
+ * @returns {Promise} resolving to the final apiResponse
+ */
+export async function workOnQuery_P(datastore, namespace, kind, worker_P) {
+
+    let query = createQuery(datastore, kind, namespace);
+
+    let function_P = function(resolve, reject) {
+
+        var getResults_A = async function(err, entities, nextQuery, apiResponse) {
+
+            if (err) {
+                return reject(err);
+            }
+            if (!entities.length) {
+                return resolve(apiResponse);
+            }
+
+            await worker_P(datastore, entities);
+
+            if (nextQuery) {
+                return runQuery(datastore, nextQuery, getResults_A);
+            }
+            resolve(apiResponse);
+        };
+
+        runQuery(datastore, query, getResults_A);
+    };
+    return new _Promise(function_P);
+}
+
+/**
  * Create datastore query
  * @param {Object} datastore gcloud-node datastore object
  * @param {string} kind
@@ -82,13 +157,21 @@ export function createQuery(datastore, kind, namespace = null, auto_paginate = t
 }
 
 /**
- * Run datastore query
+ * Run gcloud-node datastore query
+ * @param {Object} handle gcloud-node datastore or transaction object
+ * @param {Object} query created by createQuery()
+ * @param {function} [callback] optional callback to run with query results in form function(err, entities, nextQuery, apiResponse)
  */
-export function runQuery(transaction, query, callback = null) {
-    //callback = function(err, entities, nextQuery, apiResponse)
-    return transaction.runQuery(query, callback);
+export function runQuery(handle, query, callback = null) {
+    return handle.runQuery(query, callback);
 }
 
+/**
+ * Make entity helper
+ * @param {Object} key gcloud-node datastore key
+ * @param {Object} data to be stored in entity value
+ * @returns {Object} entity
+ */
 export function makeEntity(key, data) {
     return {key, data};
 }

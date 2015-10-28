@@ -36,11 +36,12 @@ describe('oakdatastore', function() {
     this.slow(3000);
     this.timeout(10000);
 
-    describe('#getDatastore()', () => {
-        it('should return a datastore object', () => {
-            datastore = _Oakds.getDataStore(get_init_options());
-            _Assert(datastore);
-        });
+    before('#getDatastore()', () => {
+        datastore = _Oakds.getDataStore(get_init_options());
+    });
+
+    afterEach('#deleteNamespace_P()', async () => {
+        await _Oakds.deleteNamespace_P(datastore, namespace);
     });
 
     describe('#createQuery()', () => {
@@ -87,10 +88,6 @@ describe('oakdatastore', function() {
             key  = _Oakds.makeKey(datastore, ['test_oakdatastore', 'id1'], namespace);
         });
 
-        after('delete', async () => {
-            await _Oakds.delete_P(datastore, key);
-        });
-
         it('should save to datastore and read from datastore', async () => {
 
             let data = {testy: "This is setting testy"};
@@ -101,6 +98,29 @@ describe('oakdatastore', function() {
 
             valueEqual(result.data, data);
             valueEqual(result.key, key);
+        });
+    });
+
+    describe('#deleteNamespace_P()', function() {
+        this.slow(6000);
+
+        it('should delete a namespace from the datastore', async () => {
+
+            let data1   = {testy1: "This is setting testy"};
+            let key1    = _Oakds.makeKey(datastore, ['kind1', 'idA'], namespace);
+            let entity1 = _Oakds.makeEntity(key1, data1);
+
+            let data2   = {testy2: "This is setting testy"};
+            let key2    = _Oakds.makeKey(datastore, ['kind2', 'idB'], namespace);
+            let entity2 = _Oakds.makeEntity(key2, data2);
+
+            await _Oakds.save_P(datastore, entity1, 'upsert');
+            await _Oakds.save_P(datastore, entity2, 'upsert');
+
+            await _Oakds.deleteNamespace_P(datastore, namespace);
+
+            let should_be_empty = await _Oakds.get_P(datastore, [key1, key2]);
+            valueEqual(should_be_empty, []);
         });
     });
 
@@ -125,10 +145,6 @@ describe('oakdatastore', function() {
 
         afterEach('delete', async () => {
             await _Oakds.delete_P(datastore, first_key);
-        });
-
-        after('delete', async () => {
-            await _Oakds.delete_P(datastore, second_keys);
         });
 
         it('should fail to insert a set of keys because of a duplicate key', async (done) => {
