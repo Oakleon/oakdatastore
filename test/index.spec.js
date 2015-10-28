@@ -23,7 +23,7 @@ function read_project_id_from_file(filename) {
 
 function get_init_options() {
     if (_use_auth_file) {
-        return { projectId: _project_id, keyFile: _auth_filename };
+        return { projectId: _project_id, keyFilename: _auth_filename };
     }
     return { projectId: _project_id };
 }
@@ -113,13 +113,13 @@ describe('oakdatastore', function() {
 
         before('makekey', () => {
 
-            first_key    = _Oakds.makeKey(datastore, ['test_oakdatastore', 'id1'], namespace);
-            first_data = {key: first_key, data: test_data};
+            first_key  = _Oakds.makeKey(datastore, ['test_oakdatastore', 'id1'], namespace);
+            first_data = _Oakds.makeEntity(first_key, test_data);
 
             second_keydata = _Ramda.range(0,10).map((i) => {
                 let key = _Oakds.makeKey(datastore, ['test_oakdatastore', `id${i}`], namespace);
                 second_keys.push(key);
-                return {key, data: test_data};
+                return _Oakds.makeEntity(key, test_data);
             });
         });
 

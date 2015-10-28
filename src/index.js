@@ -89,6 +89,10 @@ export function runQuery(transaction, query, callback = null) {
     return transaction.runQuery(query, callback);
 }
 
+export function makeEntity(key, data) {
+    return {key, data};
+}
+
 // Error Helpers
 
 function ArgumentError() {
