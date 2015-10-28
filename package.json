@@ -1,6 +1,6 @@
 {
   "name": "oakdatastore",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a gcloud node.js datastore abstraction layer with promises",
   "main": "build/index.js",
   "scripts": {
