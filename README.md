@@ -154,7 +154,7 @@ Make entity helper
 
 # Update Docs
 ```
-jsdoc2md --template doc/README.hbs src/oakpubsub.js  > README.md
+jsdoc2md --template doc/README.hbs build/oakpubsub.js  > README.md
 ```
 
 Perhaps this would be helpful:
