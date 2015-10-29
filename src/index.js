@@ -123,7 +123,7 @@ export function deleteNamespace_P(datastore, namespace) {
  */
 export function workOnQuery_P(datastore, namespace, kind, worker_P) {
 
-    let query = createQuery(datastore, kind, namespace);
+    let query = createQuery(datastore, kind, namespace, false);
 
     let function_P = function(resolve, reject) {
 
