@@ -1,7 +1,7 @@
 {
   "name": "oakdatastore",
   "version": "0.1.1",
-  "description": "a gcloud node.js datastore abstraction layer with promises",
+  "description": "a gcloud node.js google datastore abstraction layer with promises",
   "main": "build/index.js",
   "scripts": {
     "test": "mocha",
@@ -14,7 +14,9 @@
   },
   "keywords": [
     "node",
-    "oakleon"
+    "gcloud-node",
+    "datastore",
+    "google datastore"
   ],
   "author": "chris@oakleon.com",
   "license": "MIT",
