@@ -52,7 +52,7 @@ export function makeKey(datastore, path_list, namespace = null) {
 }
 
 /**
- * Save multiple objects to datastore using the same method
+ * Save multiple objects to datastore using the same method. nb if you "insert" 100 entities but 1 of them already exists, none of the entities will be written
  * @param {Object} datastore gcloud-node datastore object
  * @param {Object[]} entities in form [{key, data}, ..]
  * @param {string} method, one of: insert, update, upsert (default: insert)

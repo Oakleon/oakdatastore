@@ -114,8 +114,7 @@ describe('oakdatastore', function() {
             let key2    = _Oakds.makeKey(datastore, ['kind2', 'idB'], namespace);
             let entity2 = _Oakds.makeEntity(key2, data2);
 
-            await _Oakds.save_P(datastore, entity1, 'upsert');
-            await _Oakds.save_P(datastore, entity2, 'upsert');
+            await _Oakds.save_P(datastore, [entity1, entity2], 'upsert');
 
             await _Oakds.deleteNamespace_P(datastore, namespace);
 
