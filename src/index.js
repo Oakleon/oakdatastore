@@ -6,6 +6,11 @@ import _Ramda from 'ramda';
 process.on('unhandledRejection', err => { throw err; });
 
 /**
+ * oakdatastore module.
+ * @module oakdatastore
+ */
+
+/**
  * Make a datastore object from gcloud-node options
  * @param {Object} options gcloud-node options
  * @returns {Object} gcloud-node datastore object
@@ -83,12 +88,12 @@ export function delete_P(datastore, keys) {
  * @param {string} namespace to wipe
  * @returns {Promise} warning: this may take a long time to complete
  */
-export async function deleteNamespace_P(datastore, namespace) {
+export function deleteNamespace_P(datastore, namespace) {
     if (!namespace || typeof(namespace) !== 'string') {
         throw new Error('namespace must be a nonempty string');
     }
 
-    let deleteEntities_P = async function(datastore, entities) {
+    let deleteEntities_P = function(datastore, entities) {
         let keys = _Ramda.pluck('key')(entities);
         return delete_P(datastore, keys);
     };
@@ -116,7 +121,7 @@ export async function deleteNamespace_P(datastore, namespace) {
  * @param {function} worker_P callback worker function which takes args: (datastore, entities) and must return a promise - will be called serially for larger datasets
  * @returns {Promise} resolving to the final apiResponse
  */
-export async function workOnQuery_P(datastore, namespace, kind, worker_P) {
+export function workOnQuery_P(datastore, namespace, kind, worker_P) {
 
     let query = createQuery(datastore, kind, namespace);
 

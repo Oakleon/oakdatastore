@@ -1,0 +1,52 @@
+# oakdatastore
+
+A partial [gcloud-node](https://github.com/GoogleCloudPlatform/gcloud-node) (google cloud) datastore wrapper with bluebird promises. Only does minimally what we need, no guarantees expressed or implied. Pull Requests for expanded functions/features are welcome.
+
+### Test
+`npm test`
+or
+`npm run testwatch`
+or
+`npm test -- watch`
+
+# API Reference
+{{#module name="oakdatastore"}}
+{{>body~}}
+{{>member-index~}}
+{{>separator~}}
+{{>members~}}
+{{/module}}
+
+# Update Docs
+```
+jsdoc2md --template doc/README.hbs src/oakpubsub.js  > README.md
+```
+
+Perhaps this would be helpful:
+```
+npm install -g jsdoc-to-markdown
+```
+
+# Development
+
+Either use the atom babel package, or use gulp and babel to transpile from src to build.
+
+## Atom Setup Tips
+
+Use of the atom editor is not required. But if you choose to use atom here are some tips.
+
+#### Install Atom Packages
+`apm install linter linter-eslint language-babel editorconfig`
+
+#### linter Settings
+* Uncheck `Lint on fly`
+
+#### linter-eslint Settings
+* check `Disable When NoEslintrc File In Path`
+* uncheck `Use Global Eslint` (unchecking seems to be necessary in order to use es2016)
+
+#### language-babel Settings
+* check `Transpile On Save`
+* `src` in `Babel Source Path`
+* `build` in `Babel Transpile Path`
+* put `runtime` in `Optional Transformers`
