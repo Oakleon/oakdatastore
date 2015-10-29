@@ -4,14 +4,17 @@ A partial [gcloud-node](https://github.com/GoogleCloudPlatform/gcloud-node) (goo
 
 See tests for usage.
 
-### Test
+Tested with node v4.2.1
+
+## Test
+
 `npm test`
 or
 `npm run testwatch`
 or
 `npm test -- watch`
 
-# API Reference
+## API Reference
 oakdatastore module.
 
 
@@ -152,7 +155,7 @@ Make entity helper
 | data | <code>Object</code> | to be stored in entity value |
 
 
-# Update Docs
+## Update Docs
 ```
 jsdoc2md --template doc/README.hbs build/oakpubsub.js  > README.md
 ```
@@ -162,11 +165,11 @@ Perhaps this would be helpful:
 npm install -g jsdoc-to-markdown
 ```
 
-# Development
+## Development
 
 Either use the atom babel package, or use gulp and babel to transpile from src to build.
 
-## Atom Setup Tips
+### Atom Setup Tips
 
 Use of the atom editor is not required. But if you choose to use atom here are some tips.
 
