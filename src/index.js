@@ -59,7 +59,7 @@ export function makeKey(datastore, path_list, namespace = null) {
  * @returns {Promise} resolving to apiResponse
  */
 export function save_P(datastore, entities, method='insert') {
-    return _Promise.promisify(datastore[method], datastore)(entities);
+    return _Promise.promisify(datastore[method], {context: datastore})(entities);
 }
 
 /**
@@ -69,7 +69,7 @@ export function save_P(datastore, entities, method='insert') {
  * @returns {Promise} resolving to apiResponse
  */
 export function get_P(datastore, keys) {
-    return _Promise.promisify(datastore.get, datastore)(keys);
+    return _Promise.promisify(datastore.get, {context: datastore})(keys);
 }
 
 /**
@@ -79,7 +79,7 @@ export function get_P(datastore, keys) {
  * @returns {Promise} resolving to apiResponse
  */
 export function delete_P(datastore, keys) {
-    return _Promise.promisify(datastore.delete, datastore)(keys);
+    return _Promise.promisify(datastore.delete, {context: datastore})(keys);
 }
 
 /**
