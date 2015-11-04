@@ -155,14 +155,14 @@ export function workOnQuery_P(datastore, namespace, kind, worker_P) {
  * @param {string} kind
  * @param {string} [namespace] optional namespace
  * @param {bool} [auto_paginate] set false to manually page through results (default: true)
- * @returns {Promise} resolving to apiResponse
+ * @returns {Object} gcloud-node datastore/query object
  */
 export function createQuery(datastore, kind, namespace = null, auto_paginate = true) {
     return datastore.createQuery(namespace, kind).autoPaginate(auto_paginate);
 }
 
 /**
- * Run gcloud-node datastore query
+ * Run gcloud-node datastore query, a functional-style helper
  * @param {Object} handle gcloud-node datastore or transaction object
  * @param {Object} query created by createQuery()
  * @param {function} [callback] optional callback to run with query results in form function(err, entities, nextQuery, apiResponse)

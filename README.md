@@ -18,7 +18,7 @@ oakdatastore module.
   * [~delete_P(datastore, keys)](#module_oakdatastore..delete_P) ⇒ <code>Promise</code>
   * [~deleteNamespace_P(datastore, namespace)](#module_oakdatastore..deleteNamespace_P) ⇒ <code>Promise</code>
   * [~workOnQuery_P(datastore, namespace, kind, worker_P)](#module_oakdatastore..workOnQuery_P) ⇒ <code>Promise</code>
-  * [~createQuery(datastore, kind, [namespace], [auto_paginate])](#module_oakdatastore..createQuery) ⇒ <code>Promise</code>
+  * [~createQuery(datastore, kind, [namespace], [auto_paginate])](#module_oakdatastore..createQuery) ⇒ <code>Object</code>
   * [~runQuery(handle, query, [callback])](#module_oakdatastore..runQuery)
   * [~makeEntity(key, data)](#module_oakdatastore..makeEntity) ⇒ <code>Object</code>
 
@@ -47,7 +47,7 @@ Make a datastore key
 
 <a name="module_oakdatastore..save_P"></a>
 ### oakdatastore~save_P(datastore, entities, method,) ⇒ <code>Promise</code>
-Save multiple objects to datastore using the same method
+Save multiple objects to datastore using the same method. nb if you "insert" 100 entities but 1 of them already exists, none of the entities will be written
 
 **Kind**: inner method of <code>[oakdatastore](#module_oakdatastore)</code>  
 **Returns**: <code>Promise</code> - resolving to apiResponse  
@@ -109,11 +109,11 @@ A helper function to process a query - warning: this may take a long time to com
 | worker_P | <code>function</code> | callback worker function which takes args: (datastore, entities) and must return a promise - will be called serially for larger datasets |
 
 <a name="module_oakdatastore..createQuery"></a>
-### oakdatastore~createQuery(datastore, kind, [namespace], [auto_paginate]) ⇒ <code>Promise</code>
+### oakdatastore~createQuery(datastore, kind, [namespace], [auto_paginate]) ⇒ <code>Object</code>
 Create datastore query
 
 **Kind**: inner method of <code>[oakdatastore](#module_oakdatastore)</code>  
-**Returns**: <code>Promise</code> - resolving to apiResponse  
+**Returns**: <code>Object</code> - gcloud-node datastore/query object  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -124,7 +124,7 @@ Create datastore query
 
 <a name="module_oakdatastore..runQuery"></a>
 ### oakdatastore~runQuery(handle, query, [callback])
-Run gcloud-node datastore query
+Run gcloud-node datastore query, a functional-style helper
 
 **Kind**: inner method of <code>[oakdatastore](#module_oakdatastore)</code>  
 
