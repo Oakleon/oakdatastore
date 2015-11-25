@@ -4,7 +4,7 @@ A partial [gcloud-node](https://github.com/GoogleCloudPlatform/gcloud-node) (goo
 
 See tests for usage.
 
-Tested with node v4.2.1
+Tested with node v4 LTS
 
 ## API Reference
 oakdatastore module.
