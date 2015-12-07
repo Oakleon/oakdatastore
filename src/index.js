@@ -89,45 +89,54 @@ export function delete_P(datastore, keys) {
  * @returns {Promise} warning: this may take a long time to complete
  */
 export function deleteNamespace_P(datastore, namespace) {
+
     if (!namespace || typeof(namespace) !== 'string') {
         throw new Error('namespace must be a nonempty string');
     }
 
-    let deleteEntities_P = function(datastore, entities) {
+    function deleteEntities_P(datastore, entities) {
+
         let keys = _Ramda.pluck('key')(entities);
         return delete_P(datastore, keys);
     };
 
-    let kindWorker_P = function(datastore, entities) {
+    function kindWorker_P(datastore, entities) {
 
         let kinds = entities.map((entity) => {
             return entity.key.path[1];
         });
 
         return _Promise.resolve(kinds)
-        .map((kind) => {
-            return workOnQuery_P(datastore, namespace, kind, deleteEntities_P);
-        }, {concurrency: 1});
+        .each((kind) => {
+
+            // workaround to internals being returned
+            // see https://stackoverflow.com/questions/34144414/how-to-query-all-namespaced-kinds-in-google-datastore-using-gcloud-node
+            if (kind.indexOf('__') === 0) {
+                return _Promise.resolve();
+            }
+
+            let query_kind = createQuery(datastore, kind, namespace, false);
+            return workOnQuery_P(datastore, query_kind, deleteEntities_P);
+        });
     };
 
-    return workOnQuery_P(datastore, namespace, '__kind__', kindWorker_P);
+    let query = createQuery(datastore, '__kind__', namespace, false);
+
+    return workOnQuery_P(datastore, query, kindWorker_P);
 }
 
 /**
  * A helper function to process a query - warning: this may take a long time to complete
  * @param {Object} datastore gcloud-node datastore object
- * @param {string} namespace for query
- * @param {string} kind for query
+ * @param {Object} gcloud-node query object, as returned by createQuery()
  * @param {function} worker_P callback worker function which takes args: (datastore, entities) and must return a promise - will be called serially for larger datasets
  * @returns {Promise} resolving to the final apiResponse
  */
-export function workOnQuery_P(datastore, namespace, kind, worker_P) {
+export function workOnQuery_P(datastore, query, worker_P) {
 
-    let query = createQuery(datastore, kind, namespace, false);
+    function function_P(resolve, reject) {
 
-    let function_P = function(resolve, reject) {
-
-        var getResults_A = async function(err, entities, nextQuery, apiResponse) {
+        async function processResults(err, entities, nextQuery, apiResponse) {
 
             if (err) {
                 return reject(err);
@@ -139,12 +148,12 @@ export function workOnQuery_P(datastore, namespace, kind, worker_P) {
             await worker_P(datastore, entities);
 
             if (nextQuery) {
-                return runQuery(datastore, nextQuery, getResults_A);
+                return runQuery(datastore, nextQuery, processResults);
             }
             resolve(apiResponse);
         };
 
-        runQuery(datastore, query, getResults_A);
+        runQuery(datastore, query, processResults);
     };
     return new _Promise(function_P);
 }

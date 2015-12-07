@@ -42,8 +42,8 @@ describe('oakdatastore', function() {
         datastore = _Oakds.getDataStore(get_init_options());
     });
 
-    afterEach('#deleteNamespace_P()', async () => {
-        await _Oakds.deleteNamespace_P(datastore, namespace);
+    afterEach('#deleteNamespace_P()', () => {
+        return _Oakds.deleteNamespace_P(datastore, namespace);
     });
 
     describe('#createQuery()', () => {

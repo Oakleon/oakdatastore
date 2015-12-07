@@ -1,6 +1,6 @@
 # oakdatastore
 
-A partial [gcloud-node](https://github.com/GoogleCloudPlatform/gcloud-node) (google cloud) datastore wrapper with bluebird promises. Only does minimally what we need, no guarantees expressed or implied. Pull Requests for expanded functions/features are welcome.
+A partial [gcloud-node](https://github.com/GoogleCloudPlatform/gcloud-node) (google cloud) datastore wrapper with bluebird promises in functional style. Only does minimally what we need, no guarantees expressed or implied. Pull Requests for expanded functions/features are welcome.
 
 See tests for usage.
 
@@ -17,7 +17,7 @@ oakdatastore module.
   * [~get_P(datastore, keys)](#module_oakdatastore..get_P) ⇒ <code>Promise</code>
   * [~delete_P(datastore, keys)](#module_oakdatastore..delete_P) ⇒ <code>Promise</code>
   * [~deleteNamespace_P(datastore, namespace)](#module_oakdatastore..deleteNamespace_P) ⇒ <code>Promise</code>
-  * [~workOnQuery_P(datastore, namespace, kind, worker_P)](#module_oakdatastore..workOnQuery_P) ⇒ <code>Promise</code>
+  * [~workOnQuery_P(datastore, gcloud-node, worker_P)](#module_oakdatastore..workOnQuery_P) ⇒ <code>Promise</code>
   * [~createQuery(datastore, kind, [namespace], [auto_paginate])](#module_oakdatastore..createQuery) ⇒ <code>Object</code>
   * [~runQuery(handle, query, [callback])](#module_oakdatastore..runQuery)
   * [~makeEntity(key, data)](#module_oakdatastore..makeEntity) ⇒ <code>Object</code>
@@ -95,7 +95,7 @@ deletes all entities in a namespace
 | namespace | <code>string</code> | to wipe |
 
 <a name="module_oakdatastore..workOnQuery_P"></a>
-### oakdatastore~workOnQuery_P(datastore, namespace, kind, worker_P) ⇒ <code>Promise</code>
+### oakdatastore~workOnQuery_P(datastore, gcloud-node, worker_P) ⇒ <code>Promise</code>
 A helper function to process a query - warning: this may take a long time to complete
 
 **Kind**: inner method of <code>[oakdatastore](#module_oakdatastore)</code>  
@@ -104,8 +104,7 @@ A helper function to process a query - warning: this may take a long time to com
 | Param | Type | Description |
 | --- | --- | --- |
 | datastore | <code>Object</code> | gcloud-node datastore object |
-| namespace | <code>string</code> | for query |
-| kind | <code>string</code> | for query |
+| gcloud-node | <code>Object</code> | query object, as returned by createQuery() |
 | worker_P | <code>function</code> | callback worker function which takes args: (datastore, entities) and must return a promise - will be called serially for larger datasets |
 
 <a name="module_oakdatastore..createQuery"></a>

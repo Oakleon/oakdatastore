@@ -27,7 +27,7 @@
   "dependencies": {
     "babel-runtime": "^5.8.20",
     "bluebird": "^3.0.5",
-    "gcloud": "^0.25.1",
+    "gcloud": "^0.26.0",
     "ramda": "^0.18.0"
   },
   "devDependencies": {
