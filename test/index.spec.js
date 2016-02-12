@@ -1,5 +1,3 @@
-"use strict";
-
 import _Assert from 'assert';
 import _Fs from 'fs';
 
@@ -9,7 +7,7 @@ import * as _Oakds from '../src';
 
 
 let valueEqual     = _Assert.deepStrictEqual;
-let _auth_filename = process.env.GCLOUD_AUTH_FILE || __dirname + '/auth-secret.json';
+let _auth_filename = process.env.GOOGLE_APPLICATION_CREDENTIALS || __dirname + '/auth-secret.json';
 let _project_id    = process.env.GCLOUD_PROJECT   || read_project_id_from_file(__dirname + '/auth-project.json');
 let _use_auth_file = _Fs.existsSync(_auth_filename);
 

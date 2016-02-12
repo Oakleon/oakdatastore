@@ -11,16 +11,16 @@ oakdatastore module.
 
 
 * [oakdatastore](#module_oakdatastore)
-  * [~getDataStore(options)](#module_oakdatastore..getDataStore) ⇒ <code>Object</code>
-  * [~makeKey(datastore, path_list)](#module_oakdatastore..makeKey) ⇒ <code>Object</code>
-  * [~save_P(datastore, entities, method,)](#module_oakdatastore..save_P) ⇒ <code>Promise</code>
-  * [~get_P(datastore, keys)](#module_oakdatastore..get_P) ⇒ <code>Promise</code>
-  * [~delete_P(datastore, keys)](#module_oakdatastore..delete_P) ⇒ <code>Promise</code>
-  * [~deleteNamespace_P(datastore, namespace)](#module_oakdatastore..deleteNamespace_P) ⇒ <code>Promise</code>
-  * [~workOnQuery_P(datastore, gcloud-node, worker_P)](#module_oakdatastore..workOnQuery_P) ⇒ <code>Promise</code>
-  * [~createQuery(datastore, kind, [namespace], [auto_paginate])](#module_oakdatastore..createQuery) ⇒ <code>Object</code>
-  * [~runQuery(handle, query, [callback])](#module_oakdatastore..runQuery)
-  * [~makeEntity(key, data)](#module_oakdatastore..makeEntity) ⇒ <code>Object</code>
+    * [~getDataStore(options)](#module_oakdatastore..getDataStore) ⇒ <code>Object</code>
+    * [~makeKey(datastore, path_list)](#module_oakdatastore..makeKey) ⇒ <code>Object</code>
+    * [~save_P(datastore, entities, method,)](#module_oakdatastore..save_P) ⇒ <code>Promise</code>
+    * [~get_P(datastore, keys)](#module_oakdatastore..get_P) ⇒ <code>Promise</code>
+    * [~delete_P(datastore, keys)](#module_oakdatastore..delete_P) ⇒ <code>Promise</code>
+    * [~deleteNamespace_P(datastore, namespace)](#module_oakdatastore..deleteNamespace_P) ⇒ <code>Promise</code>
+    * [~workOnQuery_P(datastore, gcloud-node, worker_P)](#module_oakdatastore..workOnQuery_P) ⇒ <code>Promise</code>
+    * [~createQuery(datastore, kind, [namespace], [auto_paginate])](#module_oakdatastore..createQuery) ⇒ <code>Object</code>
+    * [~runQuery(handle, query, [callback])](#module_oakdatastore..runQuery)
+    * [~makeEntity(key, data)](#module_oakdatastore..makeEntity) ⇒ <code>Object</code>
 
 <a name="module_oakdatastore..getDataStore"></a>
 ### oakdatastore~getDataStore(options) ⇒ <code>Object</code>
@@ -148,7 +148,7 @@ Make entity helper
 
 ## Update Docs
 ```
-jsdoc2md --template doc/README.hbs build/oakpubsub.js  > README.md
+jsdoc2md --template doc/README.hbs build/index.js  > README.md
 ```
 
 Perhaps this would be helpful:
