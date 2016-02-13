@@ -14,7 +14,7 @@ if [ ! -x "${jsdoc2md}" ]; then
     exit 99
 fi
 
-tmpfile="/tmp/oakpubsub_doc__.js"
+tmpfile="/tmp/oakdatastore_doc__.js"
 sed_args="-E"
 
 if [ "$(uname -s)" != "Darwin" ]; then
