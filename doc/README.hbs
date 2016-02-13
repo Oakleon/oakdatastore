@@ -16,12 +16,7 @@ Tested with node v4 LTS
 
 ## Update Docs
 ```
-jsdoc2md --template doc/README.hbs build/index.js  > README.md
-```
-
-Perhaps this would be helpful:
-```
-npm install -g jsdoc-to-markdown
+./doc/generate
 ```
 
 ## Development
@@ -35,24 +30,3 @@ or
 `npm run testwatch`
 or
 `npm test -- watch`
-
-
-### Atom Setup Tips
-
-Use of the atom editor is not required. But if you choose to use atom here are some tips.
-
-#### Install Atom Packages
-`apm install linter linter-eslint language-babel editorconfig`
-
-#### linter Settings
-* Uncheck `Lint on fly`
-
-#### linter-eslint Settings
-* check `Disable When NoEslintrc File In Path`
-* uncheck `Use Global Eslint` (unchecking seems to be necessary in order to use es2016)
-
-#### language-babel Settings
-* check `Transpile On Save`
-* `src` in `Babel Source Path`
-* `build` in `Babel Transpile Path`
-* put `runtime` in `Optional Transformers`

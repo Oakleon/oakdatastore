@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# This is a kludge to remove async/await from the source file so it can be compiled by jsdoc2md
+# see <https://github.com/Oakleon/oakdatastore/issues/1>
+
+set -euo pipefail
+IFS=$'\n\t'
+
+project_path="$( cd "$( dirname "$0" )/.." && pwd )"
+jsdoc2md="${project_path}/node_modules/.bin/jsdoc2md"
+
+if [ ! -x "${jsdoc2md}" ]; then
+    echo "could not find jsdoc2md locally, try npm install?"
+    exit 99
+fi
+
+tmpfile="/tmp/oakpubsub_doc__.js"
+sed_args="-E"
+
+if [ "$(uname -s)" != "Darwin" ]; then
+    sed_args="-r"
+fi
+
+sed ${sed_args} 's/(async|await)[[:space:]]+//g' "${project_path}/src/index.js" > ${tmpfile}
+
+${jsdoc2md} --template "${project_path}/doc/README.hbs" ${tmpfile}  > ${project_path}/README.md
+
+rm ${tmpfile}
