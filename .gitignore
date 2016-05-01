@@ -31,4 +31,4 @@ node_modules
 .temp
 
 #Auth secrets
-auth-*.json
+auth-*

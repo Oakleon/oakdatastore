@@ -1,0 +1,39 @@
+{
+    "env": {
+        "es6": true,
+        "mocha": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "ecmaFeatures": {
+            "impliedStrict": true,
+            "modules": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "camelcase": ["off"],
+        "comma-dangle": ["off"],
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "no-console": ["off"],
+        "no-multi-spaces" : ["off"],
+        "no-use-before-define" : ["error", "nofunc"],
+        "no-underscore-dangle" : ["off"],
+        "no-unused-vars": ["warn", {"varsIgnorePattern": "_unused"}],
+        "quotes" : ["off", "single"],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}
