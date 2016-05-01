@@ -23,7 +23,7 @@ export function getDataStore(options) {
         throw new Error('a google cloud projectId is required');
     }
 
-    return _Gcloud.datastore.dataset(options);
+    return _Gcloud.datastore(options);
 }
 
 /**
@@ -98,7 +98,7 @@ export function deleteNamespace_P(datastore, namespace) {
 
         let keys = _Ramda.pluck('key')(entities);
         return delete_P(datastore, keys);
-    };
+    }
 
     function kindWorker_P(datastore, entities) {
 
@@ -118,7 +118,7 @@ export function deleteNamespace_P(datastore, namespace) {
             let query_kind = createQuery(datastore, kind, namespace, false);
             return workOnQuery_P(datastore, query_kind, deleteEntities_P);
         });
-    };
+    }
 
     let query = createQuery(datastore, '__kind__', namespace, false);
 
@@ -151,10 +151,10 @@ export function workOnQuery_P(datastore, query, worker_P) {
                 return runQuery(datastore, nextQuery, processResults);
             }
             resolve(apiResponse);
-        };
+        }
 
         runQuery(datastore, query, processResults);
-    };
+    }
     return new _Promise(function_P);
 }
 

@@ -154,7 +154,7 @@ describe('oakdatastore', function() {
             .then(() => {
                 done(new Error('should have thrown an error when overwriting key'));
             })
-            .catch((err) => {
+            .catch(() => {
                 done();
             });
         });
